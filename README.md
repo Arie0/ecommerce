@@ -1,16 +1,16 @@
-# ecommerce
+# E-commerce
+Um novo projeto Flutter para E-commerce
 
-A new Flutter project.
+## Começando
 
-## Getting Started
+Este projeto é um ponto de partida para um aplicativo de e-commerce desenvolvido em Flutter. 
+Abaixo estão alguns recursos para ajudá-lo a começar, especialmente se este for seu primeiro projeto Flutter:
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Recursos Adicionais
+Para obter ajuda ao iniciar o desenvolvimento com Flutter, consulte a documentação online,
+que oferece tutoriais, exemplos, orientações sobre desenvolvimento móvel e uma referência completa da API.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
