@@ -1,66 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../Controllers/category_controller.dart';
-import 'add_category_popup.dart';
+import 'package:provider/provider.dart'; // Para gerenciar o estado com o controller
+import '../controllers/category_controller.dart';
+import '../widgets/category_card.dart';
+import 'add_category_popup.dart'; // A tela de adicionar categoria
 
 class CategoryListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Carregar as categorias quando a tela for construída
     final controller = Provider.of<CategoryController>(context, listen: false);
-    controller.loadCategories();
+    controller.loadCategories(); // Carrega as categorias ao construir a tela
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Categorias"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
+    return Stack(
+      children: [
+        Consumer<CategoryController>(
+          builder: (context, controller, child) {
+            // Exibe uma mensagem centralizada se a lista de categorias estiver vazia
+            if (controller.categories.isEmpty) {
+              return const Center(child: Text("Nenhuma categoria cadastrada"));
+            }
+            // Caso contrário, exibe uma ListView das categorias
+            return ListView.builder(
+              itemCount:
+                  controller.categories.length, // Número de categorias na lista
+              itemBuilder: (context, index) {
+                return CategoryCard(
+                    category: controller.categories[
+                        index]); // Exibe cada categoria usando CategoryCard
+              },
+            );
+          },
+        ),
+        // Botão flutuante adicionado ao Stack
+        Positioned(
+          bottom: 16, // Distância da parte inferior da tela
+          right: 16, // Distância do lado direito da tela
+          child: FloatingActionButton(
             onPressed: () {
+              // Exibe o pop-up de adicionar categoria ao pressionar o botão
               showDialog(
                 context: context,
-                builder: (BuildContext context) => AddCategoryPopup(),
+                builder: (BuildContext context) {
+                  return AddCategoryPopup(); // Widget responsável por adicionar novas categorias
+                },
               );
             },
+            child: const Icon(Icons.add), // Ícone '+' para adicionar categorias
+            backgroundColor: Colors
+                .deepPurpleAccent, // Define a cor de fundo do botão como verde
           ),
-        ],
-      ),
-      body: Consumer<CategoryController>(
-        builder: (context, controller, child) {
-          if (controller.categories.isEmpty) {
-            return Center(
-              child: Text(
-                "Nenhuma categoria cadastrada",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            );
-          }
-          return ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: controller.categories.length,
-            itemBuilder: (context, index) {
-              final category = controller.categories[index];
-              return Card(
-                elevation: 6,
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: ListTile(
-                  title: Text(
-                    category.name,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete,
-                        color: const Color.fromARGB(255, 82, 2, 157)),
-                    onPressed: () => controller.removeCategory(category.id),
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
+        ),
+      ],
     );
   }
 }

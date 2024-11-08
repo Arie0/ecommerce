@@ -1,7 +1,8 @@
-// lib/screens/add_category_popup.dart
-import 'package:ecommerce/Controllers/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../controllers/category_controller.dart';
+import '../models/category.dart';
 
 class AddCategoryPopup extends StatefulWidget {
   @override
@@ -15,47 +16,42 @@ class _AddCategoryPopupState extends State<AddCategoryPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color.fromARGB(255, 182, 161, 245),
-      title: Center(
-        child: Text(
-          'Adicionar Categoria',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      title: Text('Adicionar Categoria'),
       content: Form(
         key: _formKey,
-        child: TextFormField(
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            labelText: 'Nome da Categoria',
-            labelStyle: TextStyle(color: Colors.white70),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white38),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Nome da Categoria'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Informe o nome da categoria';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _name = value!;
+              },
             ),
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Informe o nome da categoria';
-            }
-            return null;
-          },
-          onSaved: (value) {
-            _name = value!;
-          },
+          ],
         ),
       ),
       actions: [
         TextButton(
-          child: Text('Cancelar', style: TextStyle(color: Colors.white70)),
-          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Cancelar'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
-        ElevatedButton(
+        TextButton(
           child: Text('Adicionar'),
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+              final newCategory = Category(id: 0, name: _name);
               Provider.of<CategoryController>(context, listen: false)
-                  .addCategory(_name);
+                  .addCategory(newCategory);
               Navigator.of(context).pop();
             }
           },

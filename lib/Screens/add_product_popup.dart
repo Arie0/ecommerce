@@ -16,27 +16,14 @@ class _AddProductPopupState extends State<AddProductPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color.fromARGB(255, 182, 161, 245),
-      title: Center(
-        child: Text(
-          'Adicionar Produto',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
+      title: Text('Adicionar Produto'),
       content: Form(
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Nome do Produto',
-                labelStyle: TextStyle(color: Colors.black),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white38),
-                ),
-              ),
+              decoration: InputDecoration(labelText: 'Nome do Produto'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Informe o nome do produto';
@@ -48,14 +35,7 @@ class _AddProductPopupState extends State<AddProductPopup> {
               },
             ),
             TextFormField(
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Preço do Produto',
-                labelStyle: TextStyle(color: Colors.black),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-              ),
+              decoration: InputDecoration(labelText: 'Preço do Produto'),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value == null || double.tryParse(value) == null) {
@@ -72,18 +52,24 @@ class _AddProductPopupState extends State<AddProductPopup> {
       ),
       actions: [
         TextButton(
-          child: Text('Cancelar', style: TextStyle(color: Colors.black)),
-          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Cancelar'),
+          onPressed: () {
+            Navigator.of(context).pop(); // Fecha o pop-up
+          },
         ),
-        ElevatedButton(
+        TextButton(
           child: Text('Adicionar'),
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              final newProduct = Product(id: 0, name: _name, price: _price);
-              Provider.of<ProductController>(context, listen: false)
-                  .addProduct(newProduct);
-              Navigator.of(context).pop();
+              final newProduct = Product(
+                  id: 0,
+                  name: _name,
+                  price: _price,
+                  categoryId: ''); // ID pode ser gerenciado posteriormente
+              Provider.of<ProductController>(context, listen: false).addProduct(
+                  newProduct); // Adiciona o novo produto ao controlador
+              Navigator.of(context).pop(); // Fecha o pop-up após adicionar
             }
           },
         ),

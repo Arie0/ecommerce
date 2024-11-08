@@ -1,30 +1,28 @@
-import 'package:flutter/material.dart';
 import '../models/product.dart';
+import '../repositories/product_repository.dart';
+import 'package:flutter/foundation.dart'; // Import necessário para ChangeNotifier
 
 class ProductController extends ChangeNotifier {
-  List<Product> _products = [];
+  final ProductRepository _repository = ProductRepository(); // Instância do repositório
+  List<Product> _products = []; // Lista interna de produtos
 
-  List<Product> get products => _products;
+  List<Product> get products => _products; // Getter para acessar a lista de produtos
 
-  // Função para carregar produtos iniciais
+  // Função para carregar os produtos
   void loadProducts() {
-    // iniciar a lista de produtos
-    _products = [
-      Product(id: 1, name: 'Dress', price: 30.0),
-      Product(id: 2, name: 'T-shirt', price: 20.0),
-    ];
-    notifyListeners();
+    _products = _repository.getProducts(); // Carrega produtos do repositório
+    notifyListeners(); // Notifica os ouvintes sobre a mudança
   }
 
-  // adicionar um novo produto
+  // Função para adicionar um novo produto
   void addProduct(Product product) {
-    _products.add(product);
-    notifyListeners();
+    _repository.addProduct(product); // Adiciona o produto ao repositório
+    loadProducts(); // Recarrega produtos após adicionar
   }
 
-  //  remover um produto
+  // Função para remover um produto
   void removeProduct(int id) {
-    _products.removeWhere((product) => product.id == id);
-    notifyListeners();
+    _repository.removeProduct(id); // Remove o produto do repositório
+    loadProducts(); // Recarrega produtos após remover
   }
 }

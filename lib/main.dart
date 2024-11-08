@@ -1,9 +1,12 @@
-import 'package:ecommerce/Controllers/category_controller.dart';
-import 'package:ecommerce/Controllers/product_controller.dart';
-import 'package:ecommerce/Screens/category_list_screen.dart';
 import 'package:ecommerce/Screens/product_list_screen.dart';
+import 'package:ecommerce/screens/category_list_screen.dart';
+import 'package:ecommerce/screens/subcategory_screen.dart';
+import 'package:ecommerce/widgets/appscaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'controllers/product_controller.dart';
+import 'controllers/category_controller.dart';
+import 'controllers/sub_category_controller.dart';
 
 void main() {
   runApp(
@@ -11,6 +14,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => ProductController()),
         ChangeNotifierProvider(create: (_) => CategoryController()),
+        ChangeNotifierProvider(create: (_) => SubCategoryController()),
       ],
       child: MyApp(),
     ),
@@ -22,13 +26,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Marketplace',
+      title: 'E-commerce App',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-
-      home: HomeScreen(),
-      // Use o HomeScreen como tela inicial
+      home: AppScaffold(
+        bodyContent:
+            ProductListScreen(), // Define a tela inicial como ProductListScreen
+      ),
     );
   }
 }
@@ -38,16 +43,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('E-commerce'),
+        title: Text('E-commerce App'),
       ),
-
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
+            DrawerHeader(
               child: Text(
-                'Home',
+                'Menu',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -58,7 +62,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Products'),
+              title: Text('Produtos'),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -67,11 +71,21 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Category'),
+              title: Text('Categorias'),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => CategoryListScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('SubCategorias'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SubCategoryListScreen()),
                 );
               },
             ),
