@@ -1,12 +1,16 @@
-import 'package:ecommerce/Screens/product_list_screen.dart';
+import 'package:ecommerce/screens/product_list_screen.dart';
 import 'package:ecommerce/screens/category_list_screen.dart';
 import 'package:ecommerce/screens/subcategory_screen.dart';
+
 import 'package:ecommerce/widgets/appscaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'controllers/product_controller.dart';
 import 'controllers/category_controller.dart';
 import 'controllers/sub_category_controller.dart';
+import 'controllers/user_controller.dart';
+import 'controllers/role_controller.dart';
+import 'screens/user_list_screen.dart';
 
 void main() {
   runApp(
@@ -15,6 +19,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => ProductController()),
         ChangeNotifierProvider(create: (_) => CategoryController()),
         ChangeNotifierProvider(create: (_) => SubCategoryController()),
+        ChangeNotifierProvider(create: (_) => UserController()),
+        ChangeNotifierProvider(create: (_) => RoleController()),
       ],
       child: MyApp(),
     ),
@@ -80,12 +86,21 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('SubCategorias'),
+              title: Text('Subcategorias'),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => SubCategoryListScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Usuários'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserListScreen()),
                 );
               },
             ),

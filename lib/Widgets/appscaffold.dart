@@ -1,6 +1,7 @@
 import 'package:ecommerce/screens/category_list_screen.dart';
 import 'package:ecommerce/screens/product_list_screen.dart';
 import 'package:ecommerce/screens/subcategory_screen.dart';
+import 'package:ecommerce/screens/user_list_screen.dart';
 import 'package:flutter/material.dart';
 
 // Classe AppScaffold, que define a estrutura básica do aplicativo
@@ -15,14 +16,13 @@ class AppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     // Retorna a estrutura Scaffold, que é a base da tela
     return Scaffold(
-      
       // Configuração da AppBar na parte superior da tela
       appBar: AppBar(
-        title: Text("Product App"), 
+        title: Text("Product App"),
         // Define o título do app bar
         actions: [
           // Exibe o avatar do usuário e um menu suspenso (PopupMenuButton) no app bar
-          
+
           Row(
             children: [
               // CircleAvatar para mostrar a imagem do usuário
@@ -39,7 +39,7 @@ class AppScaffold extends StatelessWidget {
                     // Implementação do logout (a ser definida)
                   }
                 },
-                
+
                 // Define os itens do menu suspenso
                 itemBuilder: (BuildContext context) {
                   return [
@@ -103,7 +103,7 @@ class AppScaffold extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('SubCategorias'), // Título do item "Categorias"
+              title: Text('SubCategorias'), 
               onTap: () {
                 // Navega para a tela de lista de categorias ao selecionar o item
                 Navigator.pushReplacement(
@@ -115,7 +115,20 @@ class AppScaffold extends StatelessWidget {
                 );
               },
             ),
-            // Outros itens do menu podem ser adicionados aqui
+            ListTile(
+              title: Text('Usuários'), 
+              onTap: () {
+                
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        AppScaffold(bodyContent: UserListScreen()),
+                  ),
+                );
+              },
+            ),
+           
           ],
         ),
       ),
