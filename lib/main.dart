@@ -1,3 +1,5 @@
+import 'package:ecommerce/controllers/login_controller.dart';
+import 'package:ecommerce/screens/login_screen.dart';
 import 'package:ecommerce/screens/product_list_screen.dart';
 import 'package:ecommerce/screens/category_list_screen.dart';
 import 'package:ecommerce/screens/subcategory_screen.dart';
@@ -9,13 +11,14 @@ import 'controllers/product_controller.dart';
 import 'controllers/category_controller.dart';
 import 'controllers/sub_category_controller.dart';
 import 'controllers/user_controller.dart';
-import 'controllers/role_controller.dart';
+import 'controllers/roler_controller.dart';
 import 'screens/user_list_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => LoginController()),
         ChangeNotifierProvider(create: (_) => ProductController()),
         ChangeNotifierProvider(create: (_) => CategoryController()),
         ChangeNotifierProvider(create: (_) => SubCategoryController()),
@@ -38,7 +41,7 @@ class MyApp extends StatelessWidget {
       ),
       home: AppScaffold(
         bodyContent:
-            ProductListScreen(), // Define a tela inicial como ProductListScreen
+            LoginScreen(), // Define a tela inicial como ProductListScreen
       ),
     );
   }

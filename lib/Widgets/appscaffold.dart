@@ -1,4 +1,5 @@
 import 'package:ecommerce/screens/category_list_screen.dart';
+import 'package:ecommerce/screens/login_screen.dart';
 import 'package:ecommerce/screens/product_list_screen.dart';
 import 'package:ecommerce/screens/subcategory_screen.dart';
 import 'package:ecommerce/screens/user_list_screen.dart';
@@ -36,6 +37,13 @@ class AppScaffold extends StatelessWidget {
                 // Função chamada quando uma opção é selecionada
                 onSelected: (value) {
                   if (value == 'logout') {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+
                     // Implementação do logout (a ser definida)
                   }
                 },
@@ -103,7 +111,7 @@ class AppScaffold extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('SubCategorias'), 
+              title: Text('SubCategorias'),
               onTap: () {
                 // Navega para a tela de lista de categorias ao selecionar o item
                 Navigator.pushReplacement(
@@ -116,9 +124,8 @@ class AppScaffold extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Usuários'), 
+              title: Text('Usuários'),
               onTap: () {
-                
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -128,7 +135,6 @@ class AppScaffold extends StatelessWidget {
                 );
               },
             ),
-           
           ],
         ),
       ),
