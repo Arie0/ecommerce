@@ -25,11 +25,17 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/back.jpg"),
+                image: AssetImage("assets/images/desktop.png"),
                 fit: BoxFit.cover,
               ),
             ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0), // Move a imagem 50 pixels para a direita
+              child: SizedBox.expand(),
+            ),
           ),
+
           // Card de login
           Center(
             child: Container(
@@ -45,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // Logo
-                    Image.asset("assets/images/markt.png", height: 60),
+                    Image.asset("assets/images/markt.png", height: 90),
                     SizedBox(height: 16),
                     Text(
                       "Login",

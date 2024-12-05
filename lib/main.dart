@@ -3,8 +3,6 @@ import 'package:ecommerce/screens/login_screen.dart';
 import 'package:ecommerce/screens/product_list_screen.dart';
 import 'package:ecommerce/screens/category_list_screen.dart';
 import 'package:ecommerce/screens/subcategory_screen.dart';
-
-import 'package:ecommerce/widgets/appscaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'controllers/product_controller.dart';
@@ -18,12 +16,12 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LoginController()),
         ChangeNotifierProvider(create: (_) => ProductController()),
         ChangeNotifierProvider(create: (_) => CategoryController()),
         ChangeNotifierProvider(create: (_) => SubCategoryController()),
         ChangeNotifierProvider(create: (_) => UserController()),
         ChangeNotifierProvider(create: (_) => RoleController()),
+        ChangeNotifierProvider(create: (_) => LoginController()),
       ],
       child: MyApp(),
     ),
@@ -39,10 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: AppScaffold(
-        bodyContent:
-            LoginScreen(), // Define a tela inicial como ProductListScreen
-      ),
+      home: LoginScreen(), // Define a tela inicial como ProductListScreen
     );
   }
 }
